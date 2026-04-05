@@ -3,7 +3,6 @@ module github.com/aptd3v/containerkit
 go 1.24.0
 
 require (
-	github.com/docker/go-connections v0.6.0
 	github.com/moby/moby/api v1.54.0
 	github.com/opencontainers/image-spec v1.1.1
 	github.com/stretchr/testify v1.11.1
