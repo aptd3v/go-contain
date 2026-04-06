@@ -419,7 +419,7 @@ func TestBaseAssignments(t *testing.T) {
 		},
 		{
 			config:   &BaseConfig{},
-			setFn:    with.Base.StopTimeout(10 * time.Second),
+			setFn:    with.Base.StopTimeout(10),
 			field:    "StopTimeout",
 			expected: func() *int { v := 10; return &v }(),
 			wantErr:  false,

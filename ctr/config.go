@@ -1,6 +1,8 @@
 package ctr
 
 import (
+	"strings"
+
 	"github.com/aptd3v/containerkit/config"
 	"github.com/moby/moby/api/types/container"
 	"github.com/moby/moby/api/types/network"
@@ -37,6 +39,8 @@ type HealthConfig = container.HealthConfig
 type Container struct {
 	// errs is the collection of errors for the container configuration.
 	errs []error
+	// Name is the name of the container. It is optional and can be set when creating a new container.
+	Name string
 	// BaseConfig is the basic container related configuration options.
 	BaseConfig *BaseConfig
 	// HostConfig is the host related configuration options.
@@ -154,8 +158,18 @@ func ExtendSetters[T any](c *Container, override T) (with *SettersExt[T]) {
 	return with
 }
 
-func New() (c *Container, with *Setters) {
+// New creates a new container configuration.
+// Parameters:
+//   - name: the name of the container. It is optional and can be set when creating a new container.
+//
+// note: if name is set, each element of the name is joined with a hyphen.
+func New(name ...string) (c *Container, with *Setters) {
+	n := ""
+	if len(name) > 0 {
+		n = strings.Join(name, "-")
+	}
 	c = &Container{
+		Name:           n,
 		BaseConfig:     &BaseConfig{},
 		HostConfig:     &HostConfig{},
 		NetworkConfig:  &NetworkingConfig{},

@@ -4,6 +4,7 @@ import (
 	"github.com/moby/moby/api/types/container"
 	"github.com/moby/moby/api/types/mount"
 	"github.com/moby/moby/api/types/network"
+	"github.com/moby/moby/client"
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
 )
 
@@ -30,3 +31,11 @@ type SetEndpointConfig = SetConfig[network.EndpointSettings]
 
 // SetEndpointIPAMConfig is a type alias for [SetConfig] [network.EndpointIPAMConfig]
 type SetEndpointIPAMConfig = SetConfig[network.EndpointIPAMConfig]
+
+// Client based configuration setters
+
+// SetContainerAttachOptions is a type alias for [SetConfig] [client.ContainerAttachOptions]
+type SetContainerAttachOptions = SetConfig[client.ContainerAttachOptions]
+
+// SetImagePullOptions is a type alias for [SetConfig] [client.ImagePullOptions]
+type SetImagePullOptions = SetConfig[client.ImagePullOptions]

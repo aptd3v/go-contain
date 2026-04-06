@@ -3,7 +3,6 @@ package ctr
 import (
 	"errors"
 	"fmt"
-	"time"
 
 	"github.com/aptd3v/containerkit/config"
 	"github.com/aptd3v/containerkit/errdefs"
@@ -52,6 +51,10 @@ func (b *baseSetters) Entrypoint(entrypoint ...string) config.SetBaseConfig {
 }
 
 // Domainname sets the domain name of the container
+// Parameters:
+//   - domainname: domain name
+//
+// note: if UTS mode is set to host, domainname cannot be set
 func (b *baseSetters) Domainname(domainname string) config.SetBaseConfig {
 	return func(cfg *container.Config) error {
 		if domainname == "" {
@@ -328,10 +331,9 @@ func (b *baseSetters) Shell(shell ...string) config.SetBaseConfig {
 }
 
 // StopTimeout sets the timeout to stop the container
-func (b *baseSetters) StopTimeout(timeout time.Duration) config.SetBaseConfig {
+func (b *baseSetters) StopTimeout(seconds int) config.SetBaseConfig {
 	return wrapVoid(func(cfg *container.Config) {
-		v := int(timeout.Seconds())
-		cfg.StopTimeout = &v
+		cfg.StopTimeout = &seconds
 	})
 }
 
